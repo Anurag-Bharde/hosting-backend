@@ -10,6 +10,10 @@ const JwtSecret=process.env.JWT_SECRET
 const PORT= process.env.PORT || 3000
 const FRONTEND=process.env.CORS_ORIGIN
 
+const allowedOrigins = [
+  "https://daily-bloggers.onrender.com",
+  "https://daily-bloggers.onrender.com/"
+];
 const JWT_SECRET = JwtSecret;
 app.use(cookieParser());
 app.use(express.json())
@@ -17,7 +21,13 @@ app.use(express.json())
 app.use(
   cors({
     credentials: true,
-    origin: FRONTEND,
+    origin: (origin, callback) => {
+      if (allowedOrigins.includes(origin) || !origin) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    }
   })
 );
 app.use((req, res, next) => {
