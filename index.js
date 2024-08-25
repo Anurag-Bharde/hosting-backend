@@ -52,6 +52,10 @@ app.use(
       }
     }
   });
+
+  app.get("/",(req,res)=>{
+    res.send("<h1>check</h1>")
+  })
   
   app.post("/signup",async(req,res)=>{
     const {username,password,firstName,lastName,profession}=req.body;
