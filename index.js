@@ -54,7 +54,7 @@ const {CommentModel}=require("./db");
      const iddd=USeRFINDER._id;
 
     const token = jwt.sign({ id:iddd }, JWT_SECRET, { expiresIn: "1h" });
-    res.cookie("token", token, { httpOnly: true, secure: true });
+    res.cookie("token", token, { httpOnly: true, secure: true, sameSite: 'none'  });
     return res.send("Logged in!" + token);
     }
     catch(error){
@@ -90,7 +90,7 @@ const {CommentModel}=require("./db");
         })
       const userIDd=dbUser._id.toString()
         const token = jwt.sign({id:userIDd}, JWT_SECRET, { expiresIn: 60*60 });
-        res.cookie("token", token, { httpOnly: true, secure: true, sameSite: 'none' });
+        res.cookie("token", token, { httpOnly: true, secure: true, sameSite: 'lax' });
     }
     catch(error){
     console.log(error)
